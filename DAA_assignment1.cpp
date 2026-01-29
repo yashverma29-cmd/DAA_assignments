@@ -1,6 +1,7 @@
-#Q1
+//Q1
 
 #include <iostream>
+
 using namespace std;
 
 int main(){
@@ -30,7 +31,7 @@ int main(){
 }
 
 
-#Q2
+//Q2
 
 void mergesort(int arr[], int l, int r){
     if(l >= r) return;
@@ -89,7 +90,7 @@ int main(){
     return 0;
 }
 
-#Q3
+//Q3
 
 void quicksort(int arr[], int low, int high) {
     if (low < high) {
@@ -118,5 +119,41 @@ int main(){
     for (int i = 0; i<size; i++){
         cout << arr[i] << " ";
     }
+    return 0;
+
+}
+
+//Q4
+
+int max(int a,int b){return a>b?a:b;}
+
+int maxCrossingSum(int arr[],int l,int m,int r){
+    int sum=0,left=-1e9;
+    for(int i=m;i>=l;i--){
+        sum+=arr[i];
+        left=max(left,sum);
+    }
+    sum=0;
+    int right=-1e9;
+    for(int i=m+1;i<=r;i++){
+        sum+=arr[i];
+        right=max(right,sum);
+    }
+    return left+right;
+}
+
+int maxSubArray(int arr[],int l,int r){
+    if(l==r) return arr[l];
+    int m=l+(r-l)/2;
+    return max(
+        max(maxSubArray(arr,l,m),maxSubArray(arr,m+1,r)),
+        maxCrossingSum(arr,l,m,r)
+    );
+}
+
+int main(){
+    int arr[]={-2,-5,6,-2,-3,1,5,-6};
+    int n=sizeof(arr)/sizeof(arr[0]);
+    cout<<"Maximum subarray sum = "<<maxSubArray(arr,0,n-1);
     return 0;
 }
